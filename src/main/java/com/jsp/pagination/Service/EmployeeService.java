@@ -16,9 +16,14 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public List<Employee> fetchAllEmployees(Pageable pageable) {
+    public List<Employee> fetchAllEmployees(Pageable pageable, String search) {
 
+        if (search == null) {
             return employeeRepository.findAll(pageable).getContent();
+        } else {
+            return employeeRepository.findByName(search, pageable).getContent();
+        }
+
 
     }
 }
