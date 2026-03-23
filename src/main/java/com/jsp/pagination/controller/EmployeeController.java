@@ -3,9 +3,11 @@ package com.jsp.pagination.controller;
 import com.jsp.pagination.Entity.Employee;
 import com.jsp.pagination.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,9 +21,12 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping("/list")
-    public List<Employee> getEmployees(){
+    public List<Employee> getEmployees(@RequestParam int pageNo,
+                                       @RequestParam int pageSize) {
 
-        return employeeService.fetchAllEmployees();
+        PageRequest pageRequest = PageRequest.of(pageNo-1, pageSize);
+
+        return employeeService.fetchAllEmployees(pageRequest);
 
     }
 
