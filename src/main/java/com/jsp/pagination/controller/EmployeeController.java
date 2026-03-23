@@ -21,10 +21,10 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping("/list")
-    public List<Employee> getEmployees(@RequestParam int pageNo,
-                                       @RequestParam int pageSize) {
+    public List<Employee> getEmployees(@RequestParam(required = false, defaultValue = "1") int pageNo,
+                                       @RequestParam(required = false, defaultValue = "5") int pageSize) {
 
-        PageRequest pageRequest = PageRequest.of(pageNo-1, pageSize);
+        PageRequest pageRequest = PageRequest.of(pageNo - 1, pageSize);
 
         return employeeService.fetchAllEmployees(pageRequest);
 
